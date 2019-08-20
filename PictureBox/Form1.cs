@@ -50,5 +50,20 @@ namespace PictureBox
             imageBox2.Image = InputGray;
             imageBox1.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.PanAndZoom;
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // Inicializar variable para determinar rango de color.
+            DenseHistogram histColor = new DenseHistogram(256, new RangeF(0, 255));
+
+            histColor.Calculate(new Image<Gray, byte>[] {InputColor[0]}, false, null);
+
+            Mat m = new Mat();
+
+            histColor.CopyTo(m);
+
+            histogramBox1.AddHistogram("Histograma del color azul", Color.Blue, histColor, 256, new float[] { 0, 256 });
+            histogramBox1.Refresh();
+        }
     }
 }
